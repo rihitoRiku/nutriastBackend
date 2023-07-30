@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // dbname, username, password
-const db = new Sequelize("nutriastdb", "root", "nutriastapi28", {
-  host: "34.101.40.63",
+const db = new Sequelize("nutriastdb", "admin", "nutriast123", {
+  host: "nutriast-db.ctqi5mhthuyw.ap-southeast-1.rds.amazonaws.com",
   dialect: "mysql",
 });
 
