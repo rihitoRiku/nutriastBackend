@@ -364,6 +364,7 @@ async function loginUsers(request) {
           const loginResult = {
             code: 200,
             userId: userRegistered.id,
+            username: userRegistered.username,
             refresh_token: resultToken.refreshToken,
             accessToken: resultToken.accessToken,
           };

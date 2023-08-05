@@ -49,14 +49,23 @@ const login = async (req, res, next) => {
     if (loginResult.code == 200) {
       var responseSuccess = new ResponseClass.SuccessResponse();
       // return response cookie with refresh_token
-      res.cookie("refreshToken", loginResult.refresh_token, {
-        httpOnly: true,
-        // maxAge: 24 * 60 * 60 * 1000,
+      // res.cookie("refreshToken", loginResult.refresh_token, {
+      //   httpOnly: true,
+      //   // maxAge: 24 * 60 * 60 * 1000,
+      // });
+      res.cookie("Login_Token", loginResult.accessToken, {
+        maxAge: 86400000, // Cookie will expire after 1 day (in milliseconds)
+        httpOnly: true, // The cookie cannot be accessed through client-side JavaScript
+        secure: true, // Send the cookie only over HTTPS (set to false for development on localhost)
+        sameSite: "strict", // Restrict the cookie to the same site only
+        domain: 'http://localhost:3000/', // Set the domain where your Next.js frontend is hosted
+        path: '/',
       });
       responseSuccess.message = "Login Success";
       responseSuccess.data = {
         object: "authentication_token",
         userId: loginResult.userId,
+        username: loginResult.username,
         email: req.body.email,
         roles: loginResult.roles,
         authentication_token: loginResult.accessToken,
